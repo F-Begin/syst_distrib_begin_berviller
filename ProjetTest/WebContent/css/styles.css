@@ -6282,6 +6282,10 @@ button.bg-light:focus {
   background-color: #343a40 !important;
 }
 
+.bg-gris {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+}
+
 a.bg-dark:hover, a.bg-dark:focus,
 button.bg-dark:hover,
 button.bg-dark:focus {
@@ -10189,13 +10193,13 @@ body {
     color: #fff;
   }
   #mainNav.navbar-shrink {
-    background-color: #fff;
+    background-color: rgba(0, 0, 0, 0.4);
   }
   #mainNav.navbar-shrink .navbar-brand {
-    color: #000000;
+    color: #6c757d;
   }
   #mainNav.navbar-shrink .nav-link {
-    color: #000000;
+    color: #6c757d;
     padding: 1.5rem 1.5rem 1.25rem;
     border-bottom: 0.25rem solid transparent;
   }
@@ -10347,8 +10351,8 @@ body {
 }
 .contact-section .social a {
   text-align: center;
-  height: 3rem;
-  width: 3rem;
+  height: 7rem;
+  width: 7rem;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 100%;
   line-height: 3rem;
@@ -10363,4 +10367,8 @@ body {
 
 .footer {
   padding: 5rem 0;
+}
+
+.fab {
+  margin-top: 0.5rem !important;
 }
