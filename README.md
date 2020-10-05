@@ -1,6 +1,6 @@
 # Projet I2S Begin Florian et Berviller Thomas - TD8 - TP15
 
-Ce projet s'articule autour d'une page web fonctionnant en avec Tomcat 9.0. Le tout développé sous Eclipse EE.
+Ce projet s'articule autour d'une page web fonctionnant avec Tomcat 9.0. Le tout développé sous Eclipse EE.
 
 ## Installation sur une machine
 
