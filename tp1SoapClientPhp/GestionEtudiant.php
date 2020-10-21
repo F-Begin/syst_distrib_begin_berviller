@@ -122,9 +122,9 @@ $lastaction = "";
 	</form>
 	<?php 
 	if($lastaction == "GetEtuInfo"){
-	    echo "Nom : ",$result->return->nom,".<br>";
-	    echo "Prenom : ",$result->return->prenom,".<br>";
-	    echo "Email : ",$result->return->email,".<br>";
+	    echo "Nom : ",$result->return->nom,"<br>";
+	    echo "Prenom : ",$result->return->prenom,"<br>";
+	    echo "Email : ",$result->return->email,"<br>";
 	}
 	?>
 	<h1>Information de tout les étudiants</h1>
@@ -142,10 +142,10 @@ $lastaction = "";
 	<?php 
 	if($lastaction == "InfoAll"){
 	    foreach($result->return as $key=>$etu){
-	        echo "Etudiant numéro ",$key,".<br>";
-	        echo "Nom : ",$etu->nom,".<br>";
-	        echo "Prenom : ",$etu->prenom,".<br>";
-	        echo "Email : ",$etu->email,".<br>";
+	        echo "Etudiant numéro ",$key,"<br>";
+	        echo "Nom : ",$etu->nom,"<br>";
+	        echo "Prenom : ",$etu->prenom,"<br>";
+	        echo "Email : ",$etu->email,"<br>";
 	        echo "<br>";
 	    }
 	}
