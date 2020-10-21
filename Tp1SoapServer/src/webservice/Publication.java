@@ -9,5 +9,6 @@ public class Publication {
 		Endpoint.publish("http://localhost:8686/wsGestEtu", new  GestEtudiant());
 		System.out.println("Votre service est publié");
 		System.out.println("Adresse du WSD : http://localhost:8686/wsConversion/?wsdl");
+		System.out.println("Adresse du WSD : http://localhost:8686/wsGestEtudiant/?wsdl");
 	}
 }
