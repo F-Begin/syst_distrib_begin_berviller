@@ -112,7 +112,7 @@ public class ClientJava {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		if(isInteger(answer)) {
+		if(isInteger(answer) && stub.getEtuInfo(Integer.parseInt(answer))!=null) {
 			id = Integer.parseInt(answer);
 			Etudiant etu = stub.getEtuInfo(id);
 			System.out.println("Etudiant n°"+id);

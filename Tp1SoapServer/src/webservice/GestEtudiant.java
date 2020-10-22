@@ -19,18 +19,27 @@ public class GestEtudiant {
 	
 	@WebMethod(operationName = "GetEtuInfo")
 	public Etudiant getEtuInfo(@WebParam(name="id")int id) {
-		return liste.get(id);
+		try{
+			return liste.get(id);
+		}catch(IndexOutOfBoundsException e) {
+			e.getStackTrace();
+			return null;
+		}
 	}
 	
 	@WebMethod(operationName = "ModifieEtudiant")
 	@Oneway
 	public void modify(@WebParam(name="attribueModifie")String args,@WebParam(name="nouvelleValeur")String value,@WebParam(name="idEtudiant")int id) {
-		if(args.equals("nom"))
-			liste.set(id, new Etudiant(value,liste.get(id).getPrenom(),liste.get(id).getEmail()));
-		if(args.equals("prenom"))
-			liste.set(id, new Etudiant(liste.get(id).getNom(),value,liste.get(id).getEmail()));
-		if(args.equals("email"))
-			liste.set(id, new Etudiant(liste.get(id).getNom(), liste.get(id).getPrenom(), value));
+		try {
+			if(args.equals("nom"))
+					liste.set(id, new Etudiant(value,liste.get(id).getPrenom(),liste.get(id).getEmail()));
+			if(args.equals("prenom"))
+				liste.set(id, new Etudiant(liste.get(id).getNom(),value,liste.get(id).getEmail()));
+			if(args.equals("email"))
+				liste.set(id, new Etudiant(liste.get(id).getNom(), liste.get(id).getPrenom(), value));
+		}catch(IndexOutOfBoundsException e) {
+			e.getStackTrace();
+		}
 	}
 	
 	@WebMethod(operationName = "AjoutEtudiant")
@@ -47,7 +56,11 @@ public class GestEtudiant {
 	@WebMethod(operationName = "SuprEtudiant")
 	@Oneway
 	public void deleteEtudiant(@WebParam(name="id")int id) {
-		liste.remove(id);
+		try {
+			liste.remove(id);
+		}catch(IndexOutOfBoundsException e){
+			e.getStackTrace();
+		}
 	}
 	
 	@WebMethod(operationName = "ExportEtu")
