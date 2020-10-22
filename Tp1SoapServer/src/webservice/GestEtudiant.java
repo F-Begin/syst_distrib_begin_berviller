@@ -50,7 +50,7 @@ public class GestEtudiant {
 		liste.remove(id);
 	}
 	
-	@WebMethod(operationName = "Export")
+	@WebMethod(operationName = "ExportEtu")
 	@Oneway
 	public void exportEtu() {
 		try {
@@ -65,7 +65,7 @@ public class GestEtudiant {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@WebMethod(operationName = "Import")
+	@WebMethod(operationName = "ImportEtu")
 	@Oneway
 	public void importEtu() {
 		try {

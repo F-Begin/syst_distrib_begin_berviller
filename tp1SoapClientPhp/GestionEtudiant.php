@@ -20,7 +20,7 @@ $lastaction = "";
 		<?php 
 		if(isset($_POST['action']) && isset($_POST) && ($_POST['action']=='AjoutEtudiant')){
 		  echo "Création d'étudiant en cours...";
-		  $clientSoap = new SoapClient("http://localhost:8686/wsGestEtu/?wsdl");
+		  $clientSoap = new SoapClient("http://localhost:8686/wsGestEtudiant/?wsdl");
 		  if(isset($_POST["nom"]) && isset($_POST["prenom"]) && isset($_POST["email"])) {
 		      $params = array("nom"=>$_POST["nom"], "prenom"=>$_POST["prenom"], "email"=>$_POST["email"]);
 		      echo print_r($params);
@@ -43,7 +43,7 @@ $lastaction = "";
 		<?php 
 		if(isset($_POST['action']) && isset($_POST) && ($_POST['action']=='GetEtuId')){
 		  echo "Recherche de l'id de l'étudiant...";
-		  $clientSoap = new SoapClient("http://localhost:8686/wsGestEtu/?wsdl");
+		  $clientSoap = new SoapClient("http://localhost:8686/wsGestEtudiant/?wsdl");
 		  if(isset($_POST["nom_id_recherche"]) && isset($_POST["prenom_id_recherche"]) && isset($_POST["email_id_recherche"])) {
 		      $params = array("nom"=>$_POST["nom_id_recherche"], "prenom"=>$_POST["prenom_id_recherche"], "email"=>$_POST["email_id_recherche"]);
 		      $result = $clientSoap->GetEtuId($params);
@@ -71,7 +71,7 @@ $lastaction = "";
 	<?php 
 	if(isset($_POST['action']) && isset($_POST) && ($_POST['action']=='ModifieEtudiant')) {
 	    echo "Modification de l'étudiant...";
-	    $clientSoap = new SoapClient("http://localhost:8686/wsGestEtu/?wsdl");
+	    $clientSoap = new SoapClient("http://localhost:8686/wsGestEtudiant/?wsdl");
 	    if(isset($_POST['args']) && isset($_POST['value']) && isset($_POST['id'])) {
 	        $params = array("attribueModifie"=>$_POST["args"], "nouvelleValeur"=>$_POST["value"], "idEtudiant"=>$_POST["id"]);
 	        $clientSoap->ModifieEtudiant($params);
@@ -91,7 +91,7 @@ $lastaction = "";
 	<?php 
 	if(isset($_POST["action"]) && isset($_POST) && ($_POST["action"]=="SuprEtudiant")) {
 	    echo "Suppression de l'étudiant...";
-	    $clientSoap = new SoapClient("http://localhost:8686/wsGestEtu/?wsdl");
+	    $clientSoap = new SoapClient("http://localhost:8686/wsGestEtudiant/?wsdl");
 	    if(isset($_POST["id"])) {
 	        $params = array("id"=>$_POST["id"]);
 	        $clientSoap->SuprEtudiant($params);
@@ -111,7 +111,7 @@ $lastaction = "";
 	<?php 
 	if(isset($_POST['action']) && isset($_POST) && ($_POST["action"]=="GetEtuInfo")) {
 	    echo "Récupération des informations...";
-	    $clientSoap = new SoapClient("http://localhost:8686/wsGestEtu/?wsdl");
+	    $clientSoap = new SoapClient("http://localhost:8686/wsGestEtudiant/?wsdl");
 	    if(isset($_POST["id"])) {
 	      $params = array("id"=>$_POST["id"]);
 	      $result = $clientSoap->GetEtuInfo($params);
@@ -133,7 +133,7 @@ $lastaction = "";
 	<?php 
 	if(isset($_POST['action']) && isset($_POST) && ($_POST["action"]=="InfoAll")) {
 	    echo "Affichage de tout les étudiants...";
-	    $clientSoap = new SoapClient("http://localhost:8686/wsGestEtu/?wsdl");
+	    $clientSoap = new SoapClient("http://localhost:8686/wsGestEtudiant/?wsdl");
 	    $result = $clientSoap->InfoAll();
 	    $lastaction = "InfoAll";
 	}
@@ -152,27 +152,27 @@ $lastaction = "";
 	?>
 	<h1>Import / Export</h1>
 	<form action="GestionEtudiant.php" method="POST">
-	<input type="submit" name = "action" value = "Import">
-	<input type="submit" name = "action" value = "Export">
+	<input type="submit" name = "action" value = "ImportEtu">
+	<input type="submit" name = "action" value = "ExportEtu">
 	<?php 
-	if(isset($_POST['action']) && isset($_POST) && ($_POST["action"]=="Import")){
+	if(isset($_POST['action']) && isset($_POST) && ($_POST["action"]=="ImportEtu")){
 	    echo "Importation...";
-	    $clientSoap = new SoapClient("http://localhost:8686/wsGestEtu/?wsdl");
-	    $clientSoap->Import();
-	    $lastaction = "Import";
+	    $clientSoap = new SoapClient("http://localhost:8686/wsGestEtudiant/?wsdl");
+	    $clientSoap->ImportEtu();
+	    $lastaction = "ImportEtu";
 	}
-	if(isset($_POST['action']) && isset($_POST) && ($_POST["action"]=="Export")){
+	if(isset($_POST['action']) && isset($_POST) && ($_POST["action"]=="ExportEtu")){
 	    echo "Exportation...";
-	    $clientSoap = new SoapClient("http://localhost:8686/wsGestEtu/?wsdl");
-	    $clientSoap->Export();
-	    $lastaction = "Export";
+	    $clientSoap = new SoapClient("http://localhost:8686/wsGestEtudiant/?wsdl");
+	    $clientSoap->ExportEtu();
+	    $lastaction = "ExportEtu";
 	}
 	?>
 	</form>
 	<?php 
-	if($lastaction=="Import")
+	if($lastaction=="ImportEtu")
 	    echo "Données importées avec succès !";
-	if($lastaction=="Export")
+	if($lastaction=="ExportEtu")
 	    echo "Données exportées avec succès !";
 	?>
 </body>
