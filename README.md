@@ -40,7 +40,7 @@ Pour le client PHP, vous devez créer un nouvel alias de votre serveur PHP (Apac
 
 
 # Dépendence du projet
-Ce projet n'est pas compatible avec les versions de Java supérieur à **java 1.6.0_24 (6u45)**.
+Ce projet n'est pas compatible avec les versions de **Java 1.6 (JAVA SE 6)**.
 
 # Todolist
 - [ ] Création d'un éxécutable .jar pour le serveur et le client Java.
