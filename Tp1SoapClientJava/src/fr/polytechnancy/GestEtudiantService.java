@@ -30,9 +30,9 @@ public class GestEtudiantService
         try {
             URL baseUrl;
             baseUrl = fr.polytechnancy.GestEtudiantService.class.getResource(".");
-            url = new URL(baseUrl, "file:/C:/Users/Mighstye/Documents/GitHub/syst_distrib_begin_berviller/Tp1SoapClientJava/src/GestEtudiantService.wsdl");
+            url = new URL(baseUrl, "http://localhost:8686/wsGestEtudiant/?wsdl");
         } catch (MalformedURLException e) {
-            logger.warning("Failed to create URL for the wsdl Location: 'file:/C:/Users/Mighstye/Documents/GitHub/syst_distrib_begin_berviller/Tp1SoapClientJava/src/GestEtudiantService.wsdl', retrying as a local file");
+            logger.warning("Failed to create URL for the wsdl Location: 'http://localhost:8686/wsGestEtudiant/?wsdl', retrying as a local file");
             logger.warning(e.getMessage());
         }
         GESTETUDIANTSERVICE_WSDL_LOCATION = url;
