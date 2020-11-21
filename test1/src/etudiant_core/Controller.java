@@ -30,8 +30,10 @@ public class Controller extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		request.setAttribute("resultat", new Etudiants().allStudentsDisplay());
-		
-		this.getServletContext().getRequestDispatcher("/WEB-INF/etudiant.jsp").forward(request, response);
+		if(request.getAttribute("lastAction")==null) {
+			request.setAttribute("acceuil", true);
+		}
+		this.getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
 	}
 
 	/**
@@ -40,18 +42,21 @@ public class Controller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// on définit un objet de la classe métier... on fait apprel à la méthode addStudiant(Etudiant etudiant)
 		if(request.getParameter("action").equals("AjoutEtudiant")) {
-			Etudiant e = new Etudiant(Integer.parseInt(request.getParameter("id")), request.getParameter("nom"), request.getParameter("prenom"));
-			new Etudiants().addStudent(e);
+			new Etudiants().addStudent(request.getParameter("nom"), request.getParameter("prenom"));
+			request.setAttribute("lastAction", "addEtu");
 		}
 		
-		if(request.getParameter("action").equals("SuprEtu")) {
+		else if(request.getParameter("action").equals("SuprEtu")) {
 			new Etudiants().suprStudent(Integer.parseInt(request.getParameter("id")));
+			request.setAttribute("lastAction", "suprEtu");
 		}
 		
-		if(request.getParameter("action").equals("ModEtu")) {
+		else if(request.getParameter("action").equals("ModEtu")) {
 			new Etudiants().modEtu(request.getParameter("args"), Integer.parseInt(request.getParameter("id")), request.getParameter("value"));
+			request.setAttribute("lastAction", "modInfo");
 		}
 		
+		request.setAttribute("acceuil", false);
 		doGet(request, response);
 	}
 

@@ -15,7 +15,6 @@ public class Etudiants {
 	
 	private Connection connection; // la connecxion
 	
-	
 	public Connection getConnection() {
 		return connection;
 	}
@@ -44,20 +43,14 @@ public class Etudiants {
 	public List<Etudiant> allStudentsDisplay(){
 		List<Etudiant> result = new ArrayList<Etudiant>();
 		
-		
-		
-		//Se connecter à la BD	
 		this.connect();
-		Statement statement = null;		// la requète SQL
-		ResultSet resultSet = null; 	// le résultat de la requète SQL
+		Statement statement=null;
+		ResultSet resultSet=null;
 		
 		try {
-			connection = DriverManager.getConnection("jdbc:mysql://localhost/test1?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "root", "");
 			statement = connection.createStatement();
-			//execution d'une requête et récupération de résultat dans l'objet resultSet
 			resultSet = statement.executeQuery("SELECT * FROM etudiants");
 			
-			//récupération des données
 			while(resultSet.next()) {
 				int id = resultSet.getInt("id");
 				String nom = resultSet.getString("nom");
@@ -66,63 +59,98 @@ public class Etudiants {
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("La BD n'est pas connectée");
+			e.printStackTrace();
 		}
 		finally {
 			try {
 				if(connection!=null) connection.close();
 				if(statement!=null) statement.close();
 				if(resultSet!=null) statement.close();
-			} catch (Exception e2) {
-				
-			}
-			
+			} catch (Exception e) {
+			e.printStackTrace();
+			}	
 		}
-		
-		
 		return result;
 	}
 	
-	public void addStudent(Etudiant etudiant) {
+	public int getCount() {
 		this.connect();
-		//failles d'injection SQL...
+		Statement statement=null;
+		ResultSet result=null;
 		try {
-			PreparedStatement preparedStatement = this.connection.prepareStatement("INSERT INTO `etudiants`(`id`, `nom`, `prenom`) VALUES (?,?,?);");
-			preparedStatement.setInt(1, etudiant.getId());
-			preparedStatement.setString(2, etudiant.getNom());
-			preparedStatement.setString(3, etudiant.getPrenom());
+			statement = connection.createStatement();
+			result = statement.executeQuery("SELECT COUNT(*) AS total FROM `etudiants`");
+			result.next();
+			return result.getInt("total");
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(connection!=null) connection.close();
+				if(statement!=null) statement.close();
+				if(result!=null) statement.close();
+			} catch(Exception e) {
+			e.printStackTrace();
+			}
+		}
+		return -1; //Erreur si retourne -1
+	}
+	
+	public void addStudent(String nom, String prenom) {
+		this.connect();
+		PreparedStatement preparedStatement = null;
+		try {
+			preparedStatement = this.connection.prepareStatement("INSERT INTO `etudiants`(`id`, `nom`, `prenom`) VALUES (?,?,?);");
+			preparedStatement.setInt(1, getCount()+1);
+			preparedStatement.setString(2, nom);
+			preparedStatement.setString(3, prenom);
 			
-			// exécuter la requète
 			preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
+		finally {
+			try {
+				if(connection!=null) connection.close();
+				if(preparedStatement!=null) preparedStatement.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void suprStudent(int id) {
 		this.connect();
+		PreparedStatement preparedStatement = null;
 		try {
-			PreparedStatement preparedStatement = this.connection.prepareStatement("DELETE FROM `etudiants` WHERE `id`=?");
+			preparedStatement = this.connection.prepareStatement("DELETE FROM `etudiants` WHERE `id`=?");
 			preparedStatement.setInt(1, id);
 			
 			preparedStatement.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
+		finally {
+			try {
+				if(connection!=null) connection.close();
+				if(preparedStatement!=null) preparedStatement.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public void modEtu(String args, int id, String newValue) {
 		this.connect();
+		PreparedStatement preparedStatement = null;
 		try {
-			PreparedStatement preparedStatement = null;
 			if(args.equals("nom")) {
 				preparedStatement = this.connection.prepareStatement("UPDATE `etudiants` set `nom`=? WHERE `id`=?");
 				preparedStatement.setInt(2, id);
 				preparedStatement.setString(1, newValue);
 			}
-			if(args.equals("prenom")) {
+			else if(args.equals("prenom")) {
 				preparedStatement = this.connection.prepareStatement("UPDATE `etudiants` set `prenom`=? WHERE `id`=?");
 				preparedStatement.setInt(2, id);
 				preparedStatement.setString(1, newValue);
@@ -130,6 +158,14 @@ public class Etudiants {
 			preparedStatement.executeUpdate();
 		} catch(SQLException e) {
 			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(connection!=null) connection.close();
+				if(preparedStatement!=null) preparedStatement.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }
