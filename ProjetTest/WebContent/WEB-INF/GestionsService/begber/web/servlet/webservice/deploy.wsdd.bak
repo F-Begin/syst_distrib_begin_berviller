@@ -1,0 +1,419 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from GestionsService WSDL service -->
+
+  <service name="Gestions" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://webservice.servlet.web.begber"/>
+      <parameter name="wsdlServiceElement" value="GestionsService"/>
+      <parameter name="schemaQualified" value="http://matieres.servlet.web.begber,http://webservice.servlet.web.begber"/>
+      <parameter name="wsdlServicePort" value="Gestions"/>
+      <parameter name="className" value="begber.web.servlet.webservice.GestionsSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="Gestions"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="saveAll" qname="operNS:saveAll" xmlns:operNS="http://webservice.servlet.web.begber" soapAction="" >
+      </operation>
+      <operation name="newEtu" qname="operNS:newEtu" xmlns:operNS="http://webservice.servlet.web.begber" soapAction="" >
+        <parameter qname="pns:nom" xmlns:pns="http://webservice.servlet.web.begber" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:prenom" xmlns:pns="http://webservice.servlet.web.begber" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:numEtu" xmlns:pns="http://webservice.servlet.web.begber" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="connexion" qname="operNS:connexion" xmlns:operNS="http://webservice.servlet.web.begber" returnQName="retNS:connexionReturn" xmlns:retNS="http://webservice.servlet.web.begber" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:username" xmlns:pns="http://webservice.servlet.web.begber" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:password" xmlns:pns="http://webservice.servlet.web.begber" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="newMatiere" qname="operNS:newMatiere" xmlns:operNS="http://webservice.servlet.web.begber" soapAction="" >
+        <parameter qname="pns:nom" xmlns:pns="http://webservice.servlet.web.begber" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:coeff" xmlns:pns="http://webservice.servlet.web.begber" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="newNote" qname="operNS:newNote" xmlns:operNS="http://webservice.servlet.web.begber" soapAction="" >
+        <parameter qname="pns:id" xmlns:pns="http://webservice.servlet.web.begber" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:matiere" xmlns:pns="http://webservice.servlet.web.begber" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:note" xmlns:pns="http://webservice.servlet.web.begber" type="tns:float" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="newUsers" qname="operNS:newUsers" xmlns:operNS="http://webservice.servlet.web.begber" soapAction="" >
+        <parameter qname="pns:id" xmlns:pns="http://webservice.servlet.web.begber" type="tns:int" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:username" xmlns:pns="http://webservice.servlet.web.begber" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+        <parameter qname="pns:password" xmlns:pns="http://webservice.servlet.web.begber" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="initUser" qname="operNS:initUser" xmlns:operNS="http://webservice.servlet.web.begber" soapAction="" >
+      </operation>
+      <operation name="setListeEtu" qname="operNS:setListeEtu" xmlns:operNS="http://webservice.servlet.web.begber" soapAction="" >
+        <parameter qname="pns:listeEtu" xmlns:pns="http://webservice.servlet.web.begber" type="tns:ArrayOf_xsd_anyType" xmlns:tns="http://webservice.servlet.web.begber" itemQName="itns:item" xmlns:itns="http://webservice.servlet.web.begber"/>
+      </operation>
+      <operation name="setListeNote" qname="operNS:setListeNote" xmlns:operNS="http://webservice.servlet.web.begber" soapAction="" >
+        <parameter qname="pns:listeNote" xmlns:pns="http://webservice.servlet.web.begber" type="tns:ArrayOf_xsd_anyType" xmlns:tns="http://webservice.servlet.web.begber" itemQName="itns:item" xmlns:itns="http://webservice.servlet.web.begber"/>
+      </operation>
+      <operation name="initMatiere" qname="operNS:initMatiere" xmlns:operNS="http://webservice.servlet.web.begber" soapAction="" >
+      </operation>
+      <operation name="initNotes" qname="operNS:initNotes" xmlns:operNS="http://webservice.servlet.web.begber" soapAction="" >
+      </operation>
+      <operation name="getListeNote" qname="operNS:getListeNote" xmlns:operNS="http://webservice.servlet.web.begber" returnQName="retNS:getListeNoteReturn" xmlns:retNS="http://webservice.servlet.web.begber" returnType="rtns:ArrayOf_xsd_anyType" xmlns:rtns="http://webservice.servlet.web.begber" returnItemQName="tns:item" xmlns:tns="http://webservice.servlet.web.begber" soapAction="" >
+      </operation>
+      <operation name="setListeMatiere" qname="operNS:setListeMatiere" xmlns:operNS="http://webservice.servlet.web.begber" soapAction="" >
+        <parameter qname="pns:listeMatiere" xmlns:pns="http://webservice.servlet.web.begber" type="tns:ArrayOf_xsd_anyType" xmlns:tns="http://webservice.servlet.web.begber" itemQName="itns:item" xmlns:itns="http://webservice.servlet.web.begber"/>
+      </operation>
+      <operation name="getListeUser" qname="operNS:getListeUser" xmlns:operNS="http://webservice.servlet.web.begber" returnQName="retNS:getListeUserReturn" xmlns:retNS="http://webservice.servlet.web.begber" returnType="rtns:ArrayOf_xsd_anyType" xmlns:rtns="http://webservice.servlet.web.begber" returnItemQName="tns:item" xmlns:tns="http://webservice.servlet.web.begber" soapAction="" >
+      </operation>
+      <operation name="getListeEtu" qname="operNS:getListeEtu" xmlns:operNS="http://webservice.servlet.web.begber" returnQName="retNS:getListeEtuReturn" xmlns:retNS="http://webservice.servlet.web.begber" returnType="rtns:ArrayOf_xsd_anyType" xmlns:rtns="http://webservice.servlet.web.begber" returnItemQName="tns:item" xmlns:tns="http://webservice.servlet.web.begber" soapAction="" >
+      </operation>
+      <operation name="getListeMatiere" qname="operNS:getListeMatiere" xmlns:operNS="http://webservice.servlet.web.begber" returnQName="retNS:getListeMatiereReturn" xmlns:retNS="http://webservice.servlet.web.begber" returnType="rtns:ArrayOf_xsd_anyType" xmlns:rtns="http://webservice.servlet.web.begber" returnItemQName="tns:item" xmlns:tns="http://webservice.servlet.web.begber" soapAction="" >
+      </operation>
+      <operation name="initEtu" qname="operNS:initEtu" xmlns:operNS="http://webservice.servlet.web.begber" soapAction="" >
+      </operation>
+      <operation name="setListeUser" qname="operNS:setListeUser" xmlns:operNS="http://webservice.servlet.web.begber" soapAction="" >
+        <parameter qname="pns:listeUser" xmlns:pns="http://webservice.servlet.web.begber" type="tns:ArrayOf_xsd_anyType" xmlns:tns="http://webservice.servlet.web.begber" itemQName="itns:item" xmlns:itns="http://webservice.servlet.web.begber"/>
+      </operation>
+      <operation name="getMatiere" qname="operNS:getMatiere" xmlns:operNS="http://webservice.servlet.web.begber" returnQName="retNS:getMatiereReturn" xmlns:retNS="http://webservice.servlet.web.begber" returnType="rtns:Matiere" xmlns:rtns="http://matieres.servlet.web.begber" soapAction="" >
+        <parameter qname="pns:name" xmlns:pns="http://webservice.servlet.web.begber" type="tns:string" xmlns:tns="http://www.w3.org/2001/XMLSchema"/>
+      </operation>
+      <operation name="init" qname="operNS:init" xmlns:operNS="http://webservice.servlet.web.begber" soapAction="" >
+      </operation>
+      <parameter name="allowedMethods" value="setListeMatiere setListeUser init newUsers getListeUser initNotes getListeEtu saveAll connexion newNote setListeEtu initMatiere initEtu getMatiere setListeNote getListeNote newMatiere initUser getListeMatiere newEtu"/>
+
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>newUsers"
+        type="java:begber.web.servlet.webservice.NewUsers"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>newMatiere"
+        type="java:begber.web.servlet.webservice.NewMatiere"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>newEtu"
+        type="java:begber.web.servlet.webservice.NewEtu"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>setListeNote"
+        type="java:begber.web.servlet.webservice.SetListeNote"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>setListeUserResponse"
+        type="java:begber.web.servlet.webservice.SetListeUserResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>setListeMatiere"
+        type="java:begber.web.servlet.webservice.SetListeMatiere"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>initEtu"
+        type="java:begber.web.servlet.webservice.InitEtu"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>getListeNote"
+        type="java:begber.web.servlet.webservice.GetListeNote"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>getListeMatiere"
+        type="java:begber.web.servlet.webservice.GetListeMatiere"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>init"
+        type="java:begber.web.servlet.webservice.Init"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>initMatiere"
+        type="java:begber.web.servlet.webservice.InitMatiere"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>getListeEtuResponse"
+        type="java:begber.web.servlet.webservice.GetListeEtuResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>getListeEtu"
+        type="java:begber.web.servlet.webservice.GetListeEtu"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://matieres.servlet.web.begber"
+        qname="ns:Matiere"
+        type="java:begber.web.servlet.matieres.Matiere"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>initUserResponse"
+        type="java:begber.web.servlet.webservice.InitUserResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>saveAll"
+        type="java:begber.web.servlet.webservice.SaveAll"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>getMatiereResponse"
+        type="java:begber.web.servlet.webservice.GetMatiereResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>getListeUser"
+        type="java:begber.web.servlet.webservice.GetListeUser"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>connexionResponse"
+        type="java:begber.web.servlet.webservice.ConnexionResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>setListeNoteResponse"
+        type="java:begber.web.servlet.webservice.SetListeNoteResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>connexion"
+        type="java:begber.web.servlet.webservice.Connexion"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>newMatiereResponse"
+        type="java:begber.web.servlet.webservice.NewMatiereResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>initEtuResponse"
+        type="java:begber.web.servlet.webservice.InitEtuResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>initResponse"
+        type="java:begber.web.servlet.webservice.InitResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>newEtuResponse"
+        type="java:begber.web.servlet.webservice.NewEtuResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>initNotesResponse"
+        type="java:begber.web.servlet.webservice.InitNotesResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>newNoteResponse"
+        type="java:begber.web.servlet.webservice.NewNoteResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>setListeEtu"
+        type="java:begber.web.servlet.webservice.SetListeEtu"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>setListeMatiereResponse"
+        type="java:begber.web.servlet.webservice.SetListeMatiereResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>newNote"
+        type="java:begber.web.servlet.webservice.NewNote"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <arrayMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:ArrayOf_xsd_anyType"
+        type="java:java.lang.Object[]"
+        innerType="cmp-ns:anyType" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>initUser"
+        type="java:begber.web.servlet.webservice.InitUser"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>initNotes"
+        type="java:begber.web.servlet.webservice.InitNotes"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>initMatiereResponse"
+        type="java:begber.web.servlet.webservice.InitMatiereResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>setListeEtuResponse"
+        type="java:begber.web.servlet.webservice.SetListeEtuResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>getListeNoteResponse"
+        type="java:begber.web.servlet.webservice.GetListeNoteResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>setListeUser"
+        type="java:begber.web.servlet.webservice.SetListeUser"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>saveAllResponse"
+        type="java:begber.web.servlet.webservice.SaveAllResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>newUsersResponse"
+        type="java:begber.web.servlet.webservice.NewUsersResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>getListeUserResponse"
+        type="java:begber.web.servlet.webservice.GetListeUserResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>getListeMatiereResponse"
+        type="java:begber.web.servlet.webservice.GetListeMatiereResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://webservice.servlet.web.begber"
+        qname="ns:>getMatiere"
+        type="java:begber.web.servlet.webservice.GetMatiere"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

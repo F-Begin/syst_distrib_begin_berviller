@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="gestions" xmlns:tns="gestions" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="InvalidKeySpecException" type="tns:InvalidKeySpecException"/>
+
+  <xs:element name="NoSuchAlgorithmException" type="tns:NoSuchAlgorithmException"/>
+
+  <xs:element name="checkAvailabilityEtu" type="tns:checkAvailabilityEtu"/>
+
+  <xs:element name="checkAvailabilityEtuResponse" type="tns:checkAvailabilityEtuResponse"/>
+
+  <xs:element name="checkAvailabilityMatiere" type="tns:checkAvailabilityMatiere"/>
+
+  <xs:element name="checkAvailabilityMatiereResponse" type="tns:checkAvailabilityMatiereResponse"/>
+
+  <xs:element name="checkAvailabilityUser" type="tns:checkAvailabilityUser"/>
+
+  <xs:element name="checkAvailabilityUserResponse" type="tns:checkAvailabilityUserResponse"/>
+
+  <xs:element name="connexion" type="tns:connexion"/>
+
+  <xs:element name="connexionResponse" type="tns:connexionResponse"/>
+
+  <xs:element name="getEtuByID" type="tns:getEtuByID"/>
+
+  <xs:element name="getEtuByIDResponse" type="tns:getEtuByIDResponse"/>
+
+  <xs:element name="getListeEtu" type="tns:getListeEtu"/>
+
+  <xs:element name="getListeEtuResponse" type="tns:getListeEtuResponse"/>
+
+  <xs:element name="getListeMatiere" type="tns:getListeMatiere"/>
+
+  <xs:element name="getListeMatiereResponse" type="tns:getListeMatiereResponse"/>
+
+  <xs:element name="getListeNote" type="tns:getListeNote"/>
+
+  <xs:element name="getListeNoteResponse" type="tns:getListeNoteResponse"/>
+
+  <xs:element name="getListeUser" type="tns:getListeUser"/>
+
+  <xs:element name="getListeUserResponse" type="tns:getListeUserResponse"/>
+
+  <xs:element name="getMatiere" type="tns:getMatiere"/>
+
+  <xs:element name="getMatiereResponse" type="tns:getMatiereResponse"/>
+
+  <xs:element name="newEtu" type="tns:newEtu"/>
+
+  <xs:element name="newEtuResponse" type="tns:newEtuResponse"/>
+
+  <xs:element name="newMatiere" type="tns:newMatiere"/>
+
+  <xs:element name="newMatiereResponse" type="tns:newMatiereResponse"/>
+
+  <xs:element name="newNote" type="tns:newNote"/>
+
+  <xs:element name="newUsers" type="tns:newUsers"/>
+
+  <xs:element name="newUsersResponse" type="tns:newUsersResponse"/>
+
+  <xs:element name="setListeEtu" type="tns:setListeEtu"/>
+
+  <xs:element name="setListeEtuResponse" type="tns:setListeEtuResponse"/>
+
+  <xs:element name="setListeMatiere" type="tns:setListeMatiere"/>
+
+  <xs:element name="setListeMatiereResponse" type="tns:setListeMatiereResponse"/>
+
+  <xs:element name="setListeNote" type="tns:setListeNote"/>
+
+  <xs:element name="setListeNoteResponse" type="tns:setListeNoteResponse"/>
+
+  <xs:element name="setListeUser" type="tns:setListeUser"/>
+
+  <xs:element name="setListeUserResponse" type="tns:setListeUserResponse"/>
+
+  <xs:element name="suprEtu" type="tns:suprEtu"/>
+
+  <xs:element name="suprEtuResponse" type="tns:suprEtuResponse"/>
+
+  <xs:element name="suprMatiere" type="tns:suprMatiere"/>
+
+  <xs:element name="suprMatiereResponse" type="tns:suprMatiereResponse"/>
+
+  <xs:element name="suprNote" type="tns:suprNote"/>
+
+  <xs:element name="suprNoteResponse" type="tns:suprNoteResponse"/>
+
+  <xs:element name="suprUser" type="tns:suprUser"/>
+
+  <xs:element name="suprUserResponse" type="tns:suprUserResponse"/>
+
+  <xs:complexType name="checkAvailabilityUser">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="checkAvailabilityUserResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="newMatiere">
+    <xs:sequence>
+      <xs:element name="nom" type="xs:string" minOccurs="0"/>
+      <xs:element name="coeff" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="newMatiereResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getListeNote">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getListeNoteResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:note" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="note">
+    <xs:sequence>
+      <xs:element name="idEtu" type="xs:string" minOccurs="0"/>
+      <xs:element name="idNote" type="xs:int"/>
+      <xs:element name="matieres" type="xs:string" minOccurs="0"/>
+      <xs:element name="note" type="xs:float"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="setListeNote">
+    <xs:sequence>
+      <xs:element name="arg0" type="tns:note" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="setListeNoteResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="checkAvailabilityEtu">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="checkAvailabilityEtuResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="newEtu">
+    <xs:sequence>
+      <xs:element name="nom" type="xs:string" minOccurs="0"/>
+      <xs:element name="prenom" type="xs:string" minOccurs="0"/>
+      <xs:element name="numEtu" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="newEtuResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="suprNote">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="suprNoteResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getListeMatiere">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getListeMatiereResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:matiere" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="matiere">
+    <xs:sequence>
+      <xs:element name="coeff" type="xs:int"/>
+      <xs:element name="nom" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="suprEtu">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="suprEtuResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getMatiere">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getMatiereResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:matiere" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="suprMatiere">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="suprMatiereResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="connexion">
+    <xs:sequence>
+      <xs:element name="username" type="xs:string" minOccurs="0"/>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="connexionResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="NoSuchAlgorithmException">
+    <xs:sequence>
+      <xs:element name="message" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="InvalidKeySpecException">
+    <xs:sequence>
+      <xs:element name="message" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="newNote">
+    <xs:sequence>
+      <xs:element name="id" type="xs:string" minOccurs="0"/>
+      <xs:element name="matieres" type="xs:string" minOccurs="0"/>
+      <xs:element name="note" type="xs:float"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="checkAvailabilityMatiere">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="checkAvailabilityMatiereResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="setListeEtu">
+    <xs:sequence>
+      <xs:element name="arg0" type="tns:etudiant" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="etudiant">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element name="nom" type="xs:string" minOccurs="0"/>
+      <xs:element name="numEtu" type="xs:string" minOccurs="0"/>
+      <xs:element name="prenom" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="setListeEtuResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getListeEtu">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getListeEtuResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:etudiant" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getListeUser">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getListeUserResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:user" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="user">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+      <xs:element name="permission" type="xs:int"/>
+      <xs:element name="username" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="newUsers">
+    <xs:sequence>
+      <xs:element name="id" type="xs:int"/>
+      <xs:element name="username" type="xs:string" minOccurs="0"/>
+      <xs:element name="password" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="newUsersResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="suprUser">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="suprUserResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="setListeMatiere">
+    <xs:sequence>
+      <xs:element name="arg0" type="tns:matiere" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="setListeMatiereResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="setListeUser">
+    <xs:sequence>
+      <xs:element name="arg0" type="tns:user" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="setListeUserResponse">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getEtuByID">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getEtuByIDResponse">
+    <xs:sequence>
+      <xs:element name="return" type="tns:etudiant" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+
