@@ -10,7 +10,6 @@ Pour récupérer le projet, l'installer sur votre machine et visionner notre tra
   -3 : Configurer un serveur Apache Tomcat  
   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Aucune version conseillé, aucun test n'a encore été effectué pour verifier les versions fonctionnelles avec notre projet.  
   -4 : Démarrer le projet sous le serveur Tomcat.  
-  -5 : Accéder au site via l'adresse : http://localhost:8080/ProjetTest/index.html  
 
 ## Disclamer
 Point important -> F-Begin et Mighstye sont la même personne dans les commits du projet.
