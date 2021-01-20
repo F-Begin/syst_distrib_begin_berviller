@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.jws.Oneway;
@@ -99,13 +100,14 @@ public class Gestions {
 	public void newNote(@WebParam(name="id")String id, @WebParam(name="matieres") String matiere, @WebParam(name="note")float note) {
 		PreparedStatement preparedStatement = null;
 		try {
-			preparedStatement = connection.prepareStatement("INSERT INTO notes (`id`, `matieres`, `note`, `idNote`) VALUE (?,?,?)");
+			preparedStatement = connection.prepareStatement("INSERT INTO notes (`id`, `matieres`, `note`, `idNote`) VALUE (?,?,?,?)");
 			preparedStatement.setString(1, id);
 			preparedStatement.setString(2, matiere);
 			preparedStatement.setFloat(3, note);
 			preparedStatement.setInt(4, listeNote.size()+1);
 			preparedStatement.executeUpdate();
 			listeNote.add(new Note(id, getMatiere(matiere).getNom(), note,listeNote.size()+1));
+			System.out.println("note add");
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -140,7 +142,7 @@ public class Gestions {
 		PreparedStatement preparedStatement = null;
 		if(checkAvailabilityUser(username)) {
 			try {
-				preparedStatement = connection.prepareStatement("INSERT INTO users (`id`, `username`, `password`, `perm` VALUE (?,?,?,?)");
+				preparedStatement = connection.prepareStatement("INSERT INTO users (`id`, `username`, `password`, `perm`) VALUE (?,?,?,?)");
 				preparedStatement.setInt(1, id);
 				preparedStatement.setString(2, username);
 				try {
@@ -231,9 +233,9 @@ public class Gestions {
 		
 		try {
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery("SELECT * FROM notes");
+			resultSet = statement.executeQuery("SELECT * FROM users");
 			while(resultSet.next()) {
-				listeUser.add(new User(resultSet.getInt("id"), resultSet.getString("nom"), resultSet.getString("password"), resultSet.getInt("perm")));
+				listeUser.add(new User(resultSet.getInt("id"), resultSet.getString("username"), resultSet.getString("password"), resultSet.getInt("perm")));
 			}
 		}catch(SQLException e) {
 				e.printStackTrace();
@@ -274,12 +276,13 @@ public class Gestions {
 	public void suprMatiere(String name) {
 		PreparedStatement prepStatement = null;
 		try {
-			prepStatement = connection.prepareStatement("DELETE from matieres WHERE name=?");
+			prepStatement = connection.prepareStatement("DELETE from matieres WHERE nom=?");
 			prepStatement.setString(1, name);
 			prepStatement.executeUpdate();
-			for (Matiere mat : listeMatiere) {
+			for(Iterator<Matiere> iterator = listeMatiere.iterator(); iterator.hasNext();) {
+				Matiere mat = iterator.next();
 				if(mat.getNom().equals(name))
-					listeMatiere.remove(mat);
+					iterator.remove();
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();

@@ -2,7 +2,7 @@
  * 
  */
 function button(args) {
-	var div = ['parcEtu', 'addEtu', 'suprEtu', 'connect', 'addNote', 'suprNote', 'addMatiere', 'suprMatiere'];
+	var div = ['parcEtu', 'parcNote', 'parcMatiere', 'parcUser', 'addEtu', 'suprEtu', 'connect', 'addNote', 'suprNote', 'addMatiere', 'suprMatiere', 'newUser'];
 	for(const element of div) {
 		var x = document.getElementById(element);
 		if(element == args) {

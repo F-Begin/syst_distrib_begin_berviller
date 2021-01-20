@@ -36,11 +36,17 @@
   <div class="d-flex" id="wrapper">
     <!-- Sidebar -->
     <div class="bg-light border-right" id="sidebar-wrapper">
-      <div class="sidebar-heading">Gestion des étudiants </div>
+      <div class="sidebar-heading">Gestion des étudiants</div>
       <div class="list-group list-group-flush">
       	<form action="etudiant" method="POST">
       	<button style="display:block;margin-left:auto;margin-right:auto;" type="button" onclick="button('connect')" class="btn btn-outline-primary">Connexion / Deconnexion</button><br>
+      	<c:if test="${sessionScope.connect=='no'}">
+      	<button style="display:block;margin-left:auto;margin-right:auto;" type="button" onclick="button('newUser')" class="btn btn-outline-primary">Crée un compte</button><br>
+      	</c:if>
         <button style="display:block;margin-left:auto;margin-right:auto;" type="button" onclick="button('parcEtu')" class="btn btn-outline-primary">Parcourir les étudiants</button><br>
+        <button style="display:block;margin-left:auto;margin-right:auto;" type="button" onclick="button('parcNote')" class="btn btn-outline-primary">Parcourir les notes</button><br>
+        <button style="display:block;margin-left:auto;margin-right:auto;" type="button" onclick="button('parcMatiere')" class="btn btn-outline-primary">Parcourir les matieres</button><br>
+        <button style="display:block;margin-left:auto;margin-right:auto;" type="button" onclick="button('parcUser')" class="btn btn-outline-primary">Parcourir les utilisateurs</button><br>
         <button style="display:block;margin-left:auto;margin-right:auto;" type="button" onclick="button('addEtu')" class="btn btn-outline-primary">Ajout d'Étudiant</button><br>
         <button style="display:block;margin-left:auto;margin-right:auto;" type="button" onclick="button('suprEtu')" class="btn btn-outline-primary">Suppresion d'Étudiant</button><br>
         <button style="display:block;margin-left:auto;margin-right:auto;" type="button" onclick="button('addNote')" class="btn btn-outline-primary">Ajout d'une note</button><br>
@@ -61,32 +67,45 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-      </nav>
-      	    	
+      </nav>	
       	<div class="container-fluid">
       	<!-- Deconnexion -->
       	<div style="display:none;" id="connect" class="container">
-      	<c:if test="${ !empty sessionScope.username && sessionScope.password }"> <!--  Adapter aux Cookies -->
+      	<c:if test="${sessionScope.connect=='yes'}">
       		<div style="display:block;" id="connexionUp" class="container">
       		<p>Vous êtes déjà connecté en tant que ${ sessionScope.username } !</p>
       		<p>Vous pouvez vous déconnecter.</p>
-      		<form action="deconnexion" method="POST">
+      		<form action="etudiant" method="POST">
 			<input type = "submit" name = "action" value = "deconnexion"/>
 		</form>
       		</div>
       	</c:if>
       	<!-- Connexion -->
-      	<c:if test="${ empty sessionScope.username && sessionScope.password }"> <!-- Adapter aux cookies -->
+      	<c:if test="${sessionScope.connect=='no'}">
       		<div style="display:block;" id="connexionDown" class="container">
       		<h1>Connectez vous !</h1>
-      		<form action="connexion" methode="POST">
-      		Username : <input type="text" name ="=username"/><br>
+      		<form action="etudiant" method="POST">
+      		Username : <input type="text" name ="username"/><br>
       		Password : <input type="password" name ="password"/><br>
       		<input type="submit" name="action" value="connexion"/>
       		</form>
       		</div>
       	</c:if>
       	</div>
+      	<!-- Creation de compte -->
+      	<c:if test="${sessionScope.connect=='no'}">
+      		<div style="display:none;" id="newUser" class="container">
+      			<h1>Création de compte</h1>
+      			<form action="etudiant" method="POST">
+      			Username : <input type="text" name="username"/><br>
+      			Password : <input type="text" name="password"/><br>
+      			
+      			<div class="g-recaptcha" data-sitekey="6Lcu4zQaAAAAAPneid7e2mNA1vAaxdy_sReHqGRN"></div>
+      			
+      			<input type="submit" name="action" value="creationCompte"/>
+      			</form>
+      		</div>
+      	</c:if>
       	<!-- Parcourir les étudiants -->  
       		<div style="display:block;" id="parcEtu" class="container">
       		<h1 class="mt-4">Tableau des étudiants</h1>
@@ -109,7 +128,7 @@
       				</tr>
       			</thead>
       			<tbody>
-      			<c:forEach items="${resultat}" var="etudiant">
+      			<c:forEach items="${etudiants}" var="etudiant">
       			<tr>
       				<td><c:out value="${etudiant.id}"></c:out></td>
       				<td><c:out value="${etudiant.nom}"></c:out></td>
@@ -132,13 +151,131 @@
       			</tfoot>
       		</table>
       	</div>
+      	<!-- Parcourir les notes -->  
+      		<div style="display:none;" id="parcNote" class="container">
+      		<h1 class="mt-4">Tableau des notes</h1>
+      		<p>Vous pouvez parcourir ici la liste des notes !</p>
+      		<p>Vous pouvez de même ajuster l'affichage en modifiant les paramètres.</p>
+      		<table id="tableEtu" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+      			<thead>
+      				<tr>
+      					<th class="th-sm">ID étudiant
+      					
+      					</th>
+      					<th class="th-sm">Matiere
+      					
+      					</th>
+      					<th class="th-sm">Note
+      					
+      					</th>
+      					<th class="th-sm">#
+      					
+      					</th>
+      				</tr>
+      			</thead>
+      			<tbody>
+      			<c:forEach items="${notes}" var="note">
+      			<tr>
+      				<td><c:out value="${note.idEtu}"></c:out></td>
+      				<td><c:out value="${note.matieres}"></c:out></td>
+      				<td><c:out value="${note.note}"></c:out></td>
+      				<td><c:out value="${note.idNote}"></c:out></td>
+      			</tr>
+      			</c:forEach>
+      			</tbody>
+      			<tfoot>
+      				<tr>
+      					<th>ID étudiant
+      					</th>
+      					<th>Matière
+      					</th>
+      					<th>Note
+      					</th>
+      					<th>#
+      					</th>
+      				</tr>
+      			</tfoot>
+      		</table>
+      	</div>
+      	<!-- Parcourir les matieres -->  
+      		<div style="display:none;" id="parcMatiere" class="container">
+      		<h1 class="mt-4">Tableau des matières</h1>
+      		<p>Vous pouvez parcourir ici la liste des matières !</p>
+      		<p>Vous pouvez de même ajuster l'affichage en modifiant les paramètres.</p>
+      		<table id="tableEtu" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+      			<thead>
+      				<tr>
+      					<th class="th-sm">Nom
+      					
+      					</th>
+      					<th class="th-sm">Coefficient
+      					</th>
+      				</tr>
+      			</thead>
+      			<tbody>
+      			<c:forEach items="${matieres}" var="matiere">
+      			<tr>
+      				<td><c:out value="${matiere.nom}"></c:out></td>
+      				<td><c:out value="${matiere.coeff}"></c:out></td>
+      			</tr>
+      			</c:forEach>
+      			</tbody>
+      			<tfoot>
+      				<tr>
+      					<th>Nom
+      					</th>
+      					<th>Coefficient
+      					</th>
+      				</tr>
+      			</tfoot>
+      		</table>
+      	</div>
+      	<!-- Parcourir les utilisateurs -->  
+      		<div style="display:none;" id="parcUser" class="container">
+      		<h1 class="mt-4">Tableau des utilisateurs</h1>
+      		<p>Vous pouvez parcourir ici la liste des utilisateurs !</p>
+      		<p>Vous pouvez de même ajuster l'affichage en modifiant les paramètres.</p>
+      		<table id="tableEtu" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+      			<thead>
+      				<tr>
+      					<th class="th-sm">#
+      					
+      					</th>
+      					<th class="th-sm">Username
+      					
+      					</th>
+      					<th class="th-sm">Permission
+      					
+      					</th>
+      				</tr>
+      			</thead>
+      			<tbody>
+      			<c:forEach items="${users}" var="user">
+      			<tr>
+      				<td><c:out value="${user.id}"></c:out></td>
+      				<td><c:out value="${user.username}"></c:out></td>
+      				<td><c:out value="${user.permission}"></c:out></td>
+      			</tr>
+      			</c:forEach>
+      			</tbody>
+      			<tfoot>
+      				<tr>
+      					<th>#
+      					</th>
+      					<th>Username
+      					</th>
+      					<th>Permission
+      				</tr>
+      			</tfoot>
+      		</table>
+      	</div>
 		<!-- Ajout d'un étudiant -->
       <div style="display:none;" id="addEtu" class="container">
         <h1 class="mt-4">Ajout d'un étudiant</h1>
         <p>Vous pouvez ajouter ici un étudiant !</p>
         <form action="etudiant" method="POST">
 		Nom : <input type="text" name ="nom"/><br>
-		Prenom : <input type="text" name ="prenom"/><br><br>
+		Prenom : <input type="text" name ="prenom"/><br>
 		Numéro étudiant : <input type="text" name ="numEtu"/><br><br>
 		<input type = "submit" name = "action" value = "AjoutEtudiant"/>
 		</form>
@@ -162,7 +299,7 @@
 	  	ID de l'étudiant : <input type="text" name="id"/><br>
 	  	Matiere : <input type="text" name="matiere"/><br>
 	  	Note : <input type="text" name="note"/><br>	
-	  	<input type="submit" name="action" name="AddNote"/>
+	  	<input type="submit" name="action" value="AddNote"/>
 	  	</form>
 	  </div>
 	  
@@ -172,7 +309,7 @@
 	  	<p>Vous pouvez supprimer une note ici !</p>
 	  	<form action="etudiant" method="POST">
 	  	ID de la note à supprimer : <input type="text" name="id"/><br>
-	  	<input type="submit" name="action" name="SuprNote"/>
+	  	<input type="submit" name="action" value="SuprNote"/>
 	  	</form>
 	  </div>
 	  
@@ -183,7 +320,7 @@
 	  	<form action="etudiant" method="POST">
 	  	Nom de la matière : <input type="text" name="nom"/><br>
 	  	Coefficient de la matière : <input type="text" name="coeff"/><br>
-	  	<input type="submit" name="action" name="AddMatiere"/>
+	  	<input type="submit" name="action" value="AddMatiere"/>
 	  	</form>
 	  </div>
 	  
@@ -193,7 +330,7 @@
 	  <p>Vous pouvez supprimer une matière ici !</p>
 	  <form action="etudiant" method="POST">
 	  Nom de la matière : <input type="text" name="nom"/><br>
-	  <input type="submit" name="action" name="SuprMatiere"/>
+	  <input type="submit" name="action" value="SuprMatiere"/>
 	  </form>
 	  </div>
     </div>
@@ -228,20 +365,20 @@
 	});
   </script>
   
+  <script src='https://www.google.com/recaptcha/api.js'></script>
+  
   <!-- Script bouton -->
   <script type="text/javascript" src='<c:url value="/scripts/buttonFunction.js"/>'></script>
   
-	<script>
-	document.onload(function(){
-		var message = '@Session["message"]';
-		if(message!=null) {
-			window.alert(message);
-		}
-		else() {
-			window.alert("Ca marche toujours pas mec ...")
-		}
-	});
-	</script>
+  <script>
+  $(document).ready(function () {
+	  var message= '<%= session.getAttribute("message")%>';
+	  if(message!=null && message!="null") {
+		  window.alert(message);
+	  }
+	  <%session.removeAttribute("message");%>
+  })
+  </script>
 
 </body>
 
