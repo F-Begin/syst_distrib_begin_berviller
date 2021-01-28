@@ -6,12 +6,20 @@ Il s'agit du compte rendu du projet semestriel Polytech Nancy des étudiants BEG
 
 #### Grossièrement : 
  1. L'utilisateur arrive sur le site par l'adresse : http://localhost:8080/Projet_GestionEtudiant/etudiant
+
  2. Le servlet le redirige aussitôt sur la page d'accueil.
+
  3. L'utilisateur pourra alors choisir ses actions depuis cette page.
+
  4. Ce dernier choisit donc une actions, remplit le formulaire correspondant et soumet la requête.
+
  5. Le servlet engage une HttpSession avec l'utilisateur et va traiter sa requête.
+
  6. En fonction de la requête de l'utilisateur, le servlet engagera divers requête SOAP pour réaliser la demande utilisateur.
+
  7. Un retour de la commande utilisateur lui ai envoyé via une alerte sur son navigateur et ce dernier peut ensuite passer à l'étape suivante.
+
+[Notre page d'accueil](https://prnt.sc/xrork8)
 
 #### Dans les détails :
 
